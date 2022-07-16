@@ -1,5 +1,7 @@
 
 from django.shortcuts import render, redirect
+
+from pet.carro import Carro
 from .models import Accesorio, Cliente
 
 
@@ -22,9 +24,45 @@ def contacto(request):
 def registro(request):
     return render(request, 'pet/registro.html')
 
+def tienda(request):
+    accesorios = Accesorio.objects.all()
+    return render(request, 'pet/tienda.html', {'accesorios':accesorios})
+
+def carro(request):
+    return render(request, 'pet/carro.html')
+
+def verificar(request):
+    return render(request, 'pet/verificar.html')
+
 def login(request):
     return redirect('login')
 
+def iniciar_sesion(request):
+    return render(request, 'pet/iniciar_sesion.html')
+
+
+def agregar_accesorio(request, accesorio_id):
+    carro= Carro(request)
+    accesorio = Accesorio.objects.get(id=accesorio_id)
+    carro.agregar(accesorio)
+    return redirect('carro')
+
+def elimi_accesorio(request, accesorio_id):
+    carro= Carro(request)
+    accesorio = Accesorio.objects.get(id=accesorio_id)
+    carro.eliminar(accesorio)
+    return redirect('carro')
+
+def restar_accesorio(request, accesorio_id):
+    carro= Carro(request)
+    accesorio = Accesorio.objects.get(id=accesorio_id)
+    carro.restar(accesorio)
+    return redirect('carro')
+
+def limpiar_carro(request):
+    carro= Carro(request)
+    carro.limpiar()
+    return redirect('carro')
 
 
 
@@ -34,28 +72,28 @@ def adminpro(request):
 
 
 def registrarProducto(request):
-    codigo = request.POST['txtCodigo']
+    codigo = request.POST['txtId']
     nombre = request.POST['txtNombre']
     precio = request.POST['numPrecio']
     descripcion = request.POST['txtDescripcion']
     imagen = request.FILES.get('txtImagen')
     
 
-    accesorio = Accesorio.objects.create(codigo=codigo, nombre=nombre, precio=precio, imagen=imagen, descripcion=descripcion)
+    accesorio = Accesorio.objects.create(id=id, nombre=nombre, precio=precio, imagen=imagen, descripcion=descripcion)
     return redirect('adminpro')
 
-def edicionAccesorio(request, codigo):
-    accesorio = Accesorio.objects.get(codigo=codigo)
+def edicionAccesorio(request, id):
+    accesorio = Accesorio.objects.get(id=id)
     return render(request, 'pet/edicionAccesorio.html', {'accesorio':accesorio})
 
 def editarAccesorio(request):
-    codigo = request.POST['txtCodigo']
+    id = request.POST['txtId']
     nombre = request.POST['txtNombre']
     precio = request.POST['numPrecio']
     descripcion = request.POST['txtDescripcion']
     imagen = request.FILES.get('txtImagen')
 
-    accesorio = Accesorio.objects.get(codigo=codigo)
+    accesorio = Accesorio.objects.get(id=id)
     accesorio.nombre = nombre
     accesorio.precio = precio
     accesorio.descripcion = descripcion
@@ -64,8 +102,8 @@ def editarAccesorio(request):
 
     return redirect('adminpro') 
 
-def eliminarAccesorio(request, codigo):
-    accesorio = Accesorio.objects.get(codigo=codigo)
+def eliminarAccesorio(request, id):
+    accesorio = Accesorio.objects.get(id=id)
     accesorio.delete()
 
     return redirect('adminpro')
@@ -81,10 +119,11 @@ def registrarCliente(request):
     region = request.POST['txtRegion']
     comuna = request.POST['txtComuna']
     contraseña = request.POST['txtContraseña']
+    telefono = request.POST['txtTelefono']
     
     
 
-    cliente = Cliente.objects.create(rut=rut, nombre=nombre, email=email, region=region, comuna=comuna, contraseña=contraseña)
+    cliente = Cliente.objects.create(rut=rut, nombre=nombre, email=email, region=region, comuna=comuna, contraseña=contraseña, telefono=telefono)
     return redirect('admincli')
 
 def edicionCliente(request, rut):
@@ -98,6 +137,7 @@ def editarCliente(request):
     region = request.POST['txtRegion']
     comuna = request.POST['txtComuna']
     contraseña = request.POST['txtContraseña']
+    telefono = request.POST['txtTelefono']
 
     cliente = Cliente.objects.get(rut=rut)
     cliente.nombre = nombre
@@ -105,6 +145,7 @@ def editarCliente(request):
     cliente.region = region
     cliente.comuna = comuna
     cliente.contraseña = contraseña
+    cliente.telefono = telefono
     cliente.save()
 
     return redirect('admincli') 

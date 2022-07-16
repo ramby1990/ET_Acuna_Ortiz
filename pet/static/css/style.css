@@ -12,10 +12,6 @@ td {
 
 }
 
-.padre {
-    display: flex;
-    flex-flow: column nowrap;
-}
 
 .header {
 
@@ -44,14 +40,56 @@ td {
 }
 
 .menu {
+    
     display: flex;
-    flex-flow: row wrap;
+    justify-content: space-between;
     height: 120px;
+    width: 100vw;
     align-items: center;
     background: rgba(0, 0, 0, .1);
     border-bottom: 1px solid rgba(255, 255, 255, .5);
 
 }
+
+.menu_items{
+    display: flex;
+    list-style: none;
+    margin-right: 30px;
+
+}
+
+.menu_items li {
+    border-radius: 3px;
+    margin: 0 5px;
+}
+
+.menu_items li a {
+    padding: 7px 13px;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.menu_items li:hover, li.active {
+    background-color: rgba(0, 0, 0, .3);
+    transition: .4s;
+}
+
+.btn_menu {
+    margin-right: 30px;
+    font-size: 25px;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+
+ul.show {
+    top: 65px;
+}
+
+
 
 
 
@@ -68,22 +106,36 @@ td {
     
 }
 
-.nav {
-    flex: 1 1 auto;
-    
+
+.cart-row{
+
+    display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
 }
 
-.nav a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 13px;
-    text-transform: uppercase;
-    padding: 0 15px;
-    letter-spacing: 2px;
-    display: flex;
-    text-align: right;
-    
 
+/*---------------------------------TIENDA------------------------------------*/
+
+.box-element{
+    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+
+}
+
+.Producto{
+    border-radius: 0 0 4px 4px;
+}
+
+.fotopro{
+    width: 800%;
+    height: 200px;
+    
+    
 }
 
 /*------------------------------------------RELOJ---------------------------*/
@@ -732,52 +784,54 @@ label.error{
 
 /*-----------------------------------------------------------------------------RESPONSIVE------------------------------------------------------------*/
 
-@media all and (max-width: 600px) {
-    .off {
-        display: none;
+@media screen and (max-width: 858px) and (orientation: landscape) {
+    .menu_items li {
+        margin: 5px 0 0 0;
     }
+    .menu_items {
+        overflow: scroll;
+        height: calc(100% - 65px);
+    }
+}
 
-    .header {
-        width: 100%;
-        background-position: center;
+
+  
+@media screen and (max-width: 858px) {
+    .menu {
+        height: 95px;
+    }
+    .btn_menu {
+        display: inline-flex;
+    }
+    .menu_items {
+        position: fixed;
+        width: 100vw;
+        height: calc(100% - 65px);
+        background: #414141;
+        top: -100vh;
+        text-align: center;
+        transition: all .4s;
         flex-direction: column;
-        text-align: center;
-        
-        height: 850px;
-
-
+        margin-top: 30px;
     }
-
-    .menu{
-        height: 440px;
+    .menu_items li {
+        margin: 30px 0 0 0;
+        line-height: 30px;
     }
-
-    .logo img {
-        height: 100px;
-        margin-right: 130px;
-        
+    .menu_items li a {
+        font-size: 20px;
+        color: #fff;
+        font-weight: bold;
     }
-
-    .nav{
-        justify-content: center;
-        display: flex;
-        margin-top: 20px;
-        margin-right: 20px;
+    .menu_items li a:hover {
+        color: #e9183b;
     }
-
-   
-
-    .nav a {
+    .logo {
         font-size: 25px;
-        
-        height: 300px;
-        
+        padding-left: 35px;
     }
 
-    .menu{
-        height: 150px;
-        text-align: center;
-    }
+
 
     
 
@@ -843,6 +897,20 @@ label.error{
         width: 85%;
         margin-left: 25px;
     }
+
+    .card{
+        width: 100%;
+    }
+
+    .cards1{
+        width: 100%;
+       
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;   
+    }
+
 /*---------------------Galeria----------------------------*/
 
     .portafolio {
@@ -999,36 +1067,9 @@ label.error{
 }
 
 @media all and (max-width: 450px) {
-    .off {
-        display: none;
-    }
-
-    .header {
-        width: 115%;
-        background-position: center;
-        flex-direction: column;
-        height: 900px;
-       
 
 
-    }
-
-    .menu{
-        height: 200px;
-    }
-
-    .menu a{
-        
-        margin-right: 1px;
-    }
-
-    .logo img {
-        height: 100px;
-        margin-right: 155px;
-        
-        
-    }
-
+ 
     .contenedor-quienes-somos {
 
         flex-direction: column;
@@ -1074,32 +1115,6 @@ label.error{
 }
 
 @media all and (max-width: 350px) {
-    .off {
-        display: none;
-    }
-
-    .header {
-        width: 140%;
-        background-position: center;
-        flex-direction: column;
-        height: 900px;
-       
-
-
-    }
-
-    .menu{
-        height: 200px;
-    }
-
-    
-
-    .logo img {
-        height: 100px;
-        margin-right: 120px;
-        
-        
-    }
 
     .contenedor-quienes-somos {
 
@@ -1139,26 +1154,7 @@ label.error{
 
     }
 
-    .header {
-        width: 90%;
-        background-position: center;
-        flex-direction: column;
-        height: 900px;
-       
-
-
-    }
-
-    .menu{
-        height: 200px;
-    }
-
-    .logo img {
-        height: 100px;
-        margin-right: 120px;
-        
-        
-    }
+  
 
     .contenedor-quienes-somos {
 
@@ -1202,9 +1198,6 @@ label.error{
         width: 140%;
     }
 
-    .padre{
-        width: 100%;
-    }
 
 }
 

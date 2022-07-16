@@ -9,15 +9,14 @@ from django.forms import CharField
 # Create your models here.
 
 class Accesorio(models.Model):
-    codigo=models.CharField(primary_key=True,max_length=6)
-    nombre=models.CharField(max_length=50)
-    precio=models.PositiveSmallIntegerField()
-    descripcion=models.TextField(null=True, blank=True)
-    imagen=models.ImageField(upload_to="productos", null=True)
+    id =models.CharField(primary_key=True,max_length=6)
+    nombre = models.CharField(max_length=64)
+    descripcion =models.TextField(null=True)
+    precio = models.PositiveSmallIntegerField()
+    imagen = models.ImageField(upload_to="productos", null=True)
 
     def __str__(self):
-        texto = "{0} ({1})"
-        return texto.format(self.nombre, self.precio,)
+        return f'{self.nombre} -> {self.precio}'
 
 
 
@@ -35,6 +34,7 @@ class Cliente(models.Model):
         
     )
     contraseña=models.CharField(max_length=50)
+    telefono=models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         
